@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Instalasi Laravel By;Satya</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e2e;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background: #2a2a3c;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #72b4ff;
+            border-bottom: 2px solid #72b4ff;
+            padding-bottom: 5px;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        code {
+            background: #3a3a4f;
+            padding: 3px 6px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        pre {
+            background: #3a3a4f;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        pre code {
+            color: #e0e0e0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="pengertian">
+        <h2>Pengertian Laravel</h2>
+        <p>Laravel adalah framework PHP open-source yang digunakan untuk membangun aplikasi web dengan sintaks yang elegan, sederhana, dan ekspresif. Laravel menyediakan berbagai fitur seperti routing, middleware, ORM, autentikasi, dan masih banyak lagi.</p>
+    </div>
+    <div class="container" id="bahan">
+        <h2>Bahan Pendukung</h2>
+        <p>Untuk menginstal Laravel, Anda membutuhkan:</p>
+        <ul>
+            <li>PHP >= 8.0</li>
+            <li>Composer</li>
+            <li>Web Server (Apache/Nginx)</li>
+            <li>Database (MySQL/PostgreSQL)</li>
+            <li>Node.js & NPM (untuk frontend jika diperlukan)</li>
+        </ul>
+    </div>
+    <div class="container" id="install">
+        <h2>Instalasi Laravel</h2>
+        <p>Ikuti langkah berikut untuk menginstal Laravel:</p>
+        <ol>
+            <li>Pastikan PHP, Composer, dan Node.js telah terinstal.</li>
+            <li>Jalankan perintah berikut untuk membuat proyek Laravel:</li>
+            <pre><code>composer create-project laravel/laravel myproject</code></pre>
+            <li>Masuk ke direktori proyek dan jalankan server:</li>
+            <pre><code>cd myproject
+php artisan serve</code></pre>
+            <li>Set konfigurasi database di file <code>.env</code>.</li>
+            <li>Jalankan migrasi database:</li>
+            <pre><code>php artisan migrate</code></pre>
+            <li>Jika menggunakan Vue atau React, instal dependensi frontend:</li>
+            <pre><code>npm install && npm run dev</code></pre>
+        </ol>
+    </div>
+    <div class="container" id="routing">
+        <h2>Routing di Laravel</h2>
+        <p>Routing di Laravel ditentukan dalam file <code>routes/web.php</code>. Contoh route sederhana:</p>
+        <pre><code>Route::get('/', function () {
+    return view('welcome');
+});</code></pre>
+        <p>Contoh route dengan controller:</p>
+        <pre><code>use App\Http\Controllers\UserController;
+
+Route::get('/users', [UserController::class, 'index']);</code></pre>
+    </div>
+    <div class="container" id="kerangka">
+        <h2>Struktur Proyek Laravel</h2>
+        <p>Laravel memiliki struktur proyek sebagai berikut:</p>
+        <ul>
+            <li><code>app/</code> - Berisi logika aplikasi</li>
+            <li><code>routes/</code> - Berisi konfigurasi routing</li>
+            <li><code>database/</code> - Berisi migrasi dan seeder</li>
+            <li><code>resources/</code> - Berisi tampilan dan asset frontend</li>
+            <li><code>public/</code> - Direktori utama yang dapat diakses oleh pengguna</li>
+        </ul>
+    </div>
+    <div class="container" id="middleware">
+        <h2>Middleware di Laravel</h2>
+        <p>Middleware digunakan untuk memfilter permintaan HTTP. Contoh membuat middleware baru:</p>
+        <pre><code>php artisan make:middleware CheckUser</code></pre>
+        <p>Middleware dapat didaftarkan dalam <code>app/Http/Kernel.php</code>.</p>
+    </div>
+    <div class="container" id="deploy">
+        <h2>Deploy Laravel</h2>
+        <p>Untuk melakukan deploy Laravel ke server, ikuti langkah berikut:</p>
+        <ol>
+            <li>Upload kode ke server menggunakan Git atau FTP.</li>
+            <li>Pastikan semua dependency terinstal dengan perintah:</li>
+            <pre><code>composer install --optimize-autoloader --no-dev</code></pre>
+            <li>Set permission pada folder <code>storage</code> dan <code>bootstrap/cache</code>:</li>
+            <pre><code>chmod -R 775 storage bootstrap/cache</code></pre>
+            <li>Konfigurasi file <code>.env</code> dan jalankan migrasi database:</li>
+            <pre><code>php artisan migrate --force</code></pre>
+            <li>Pastikan konfigurasi queue dan cron job telah diatur jika diperlukan.</li>
+            <li>Gunakan supervisor untuk menjalankan queue worker di latar belakang.</li>
+        </ol>
+    </div>
+    <div class="footer">
+        <p>Hak Cipta &copy; 2025 - Dosen: Jamal Apriadi, S.Kom</p>
+    </div>
+</body>
+</html>
