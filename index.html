@@ -12,6 +12,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+  <link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="dashboard.js" defer></script>
 </head>
 <body>
   <!-- Header dengan efek sticky dan animasi -->
@@ -26,6 +29,7 @@
     </nav>
   </header>
 
+  
   <!-- Hero Section dengan efek 3D dan animasi teks -->
   <section id="hero">
     <div class="hero-text">
@@ -34,16 +38,81 @@
       <a href="#portfolio" class="cta-button">Jelajahi Karya Saya</a>
     </div>
     <canvas id="hero-canvas"></canvas> <!-- Canvas untuk efek 3D -->
-
+    
     <div class="hero-text" style="display: flex; flex-direction: column; align-items: center;">
       <div class="profile-image">
-          <img src="foto/Foto Saya.jpeg" alt="Profil Saya" style="width: 150px; border-radius: 50%;">
+        <img src="foto/Foto Saya.jpeg" alt="Profil Saya" style="width: 150px; border-radius: 50%;">
       </div>
       <p style="text-align: center;">Web Developer</p>
+    </div>
+    
+    
+  </section>
+  <!-- HTML untuk Live Widget Dashboard -->
+<section id="dashboard-widget">
+  <div class="time-date-display">
+    <div class="time" id="current-time">3:48</div>
+    <div class="date" id="current-date">Saturday, March 22</div>
   </div>
   
-  </section>
-  
+  <div class="widget-container">
+    <!-- Widget Cuaca -->
+    <div class="widget-card weather">
+      <div class="widget-icon">
+        <i class="fas fa-cloud-sun" id="weather-icon"></i>
+      </div>
+      <div class="widget-content">
+        <h3 id="weather-location">Slawi</h3>
+        <div class="weather-temp">
+          <span id="temperature">--</span>°<span id="temp-unit">F</span>
+        </div>
+        <div class="weather-details">
+          <span id="weather-condition">Memuat...</span>
+          <div class="temp-range"><span id="temp-high">--</span>° / <span id="temp-low">--</span>°</div>
+        </div>
+        
+        <a href="#" class="widget-link">Lihat prakiraan lengkap</a>
+      </div>
+    </div>
+    
+    <!-- Widget Pasar Saham -->
+    <div class="widget-card stocks">
+      <h3>Pasar</h3>
+      <div class="stocks-grid" id="stocks-container">
+        <div class="stock-item skeleton">
+          <div class="stock-name">Loading...</div>
+          <div class="stock-change">--</div>
+          <div class="stock-price">--</div>
+        </div>
+      </div>
+      <a href="#" class="widget-link">Lihat selengkapnya di pasar</a>
+    </div>
+    
+    <!-- Widget Lalu Lintas -->
+    <div class="widget-card traffic">
+      <h3>Lalu lintas di sekitar Anda</h3>
+      <div class="traffic-map" id="traffic-map">
+        <!-- Peta akan ditampilkan di sini -->
+      </div>
+      <div class="traffic-info">
+        <h4 id="traffic-location">Memuat lokasi...</h4>
+        <p id="traffic-status">Memuat status lalu lintas...</p>
+      </div>
+      <a href="#" class="widget-link">Lihat pembaruan lalu lintas lainnya</a>
+    </div>
+    
+    <!-- Widget Olahraga -->
+    <div class="widget-card sports">
+      <h3>Tren di Liga Primer</h3>
+      <div class="match-status" id="match-status">Memuat...</div>
+      <div class="matches" id="matches-container">
+        <!-- Match data akan ditampilkan di sini -->
+        <div class="loading-matches">Memuat hasil pertandingan...</div>
+      </div>
+      <a href="#" class="widget-link">Lainnya di Liga Primer</a>
+    </div>
+  </div>
+</section>
 
   <!-- About Section dengan animasi scroll -->
   <section id="about">
@@ -66,6 +135,67 @@
         <i class="fas fa-rocket"></i>
         <h3>Optimasi Performa</h3>
         <p>Saya memastikan situs web Anda cepat dan efisien.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Pendidikan Saya</h2>
+    <div class="education-container">
+      <div class="education-card">
+        <a href="https://sdmslawi.sch.id/" target="_blank" class="education-link">
+          <div class="education-logo">
+            <img src="https://sdmslawi.sch.id/assets/images/setting/31876adb47610d27b12d0576cb5bdba4.png" alt="Logo SD Muhammadiyah Slawi" />
+          </div>
+          <div class="education-content">
+            <h3>SD Muhammadiyah Slawi</h3>
+            <span class="education-year">2010 - 2016</span>
+            <p class="education-description">Pendidikan dasar dengan nilai-nilai Islam</p>
+          </div>
+          <div class="badge"></div>
+        </a>
+      </div>
+  
+      <div class="education-card">
+        <a href="https://www.instagram.com/ppad_info/" target="_blank" class="education-link">
+          <div class="education-logo">
+            <img src="https://th.bing.com/th/id/OIP.rVZSoqdjXCy17xswRPoQVwHaHd?rs=1&pid=ImgDetMain" alt="Logo MTs Ahmad Dahlan" />
+          </div>
+          <div class="education-content">
+            <h3>MTs Ahmad Dahlan</h3>
+            <span class="education-year">2016 - 2019</span>
+            <p class="education-description">Pendidikan menengah pertama Islam</p>
+          </div>
+          <div class="badge"></div>
+        </a>
+      </div>
+  
+      <div class="education-card">
+        <a href="https://smkn3tegal.sch.id/" target="_blank" class="education-link">
+          <div class="education-logo">
+            <img src="https://th.bing.com/th/id/OIP.pM3VM3oxdZwRIe9bjfMB3AHaHa?rs=1&pid=ImgDetMain" alt="Logo SMK N 3 Tegal" />
+          </div>
+          <div class="education-content">
+            <h3>SMK Negeri 3 Tegal</h3>
+            <span class="education-year">2019 - 2022</span>
+            <p class="education-description">Pendidikan menengah kejuruan</p>
+          </div>
+          <div class="badge"></div>
+        </a>
+      </div>
+  
+      <div class="education-card">
+        <a href="https://poltekharber.ac.id/" target="_blank" class="education-link">
+          <div class="education-logo">
+            <img src="https://th.bing.com/th/id/OIP.AdKgT8xfyXPMVKTacQEBvgHaHy?rs=1&pid=ImgDetMain" alt="Logo Politeknik Harapan Bersama" />
+          </div>
+          <div class="education-content">
+            <h3>Politeknik Harapan Bersama</h3>
+            <span class="education-year">2022 - Sekarang</span>
+            <p class="education-description">Pendidikan tinggi vokasi</p>
+          </div>
+          <div class="badge"></div>
+        </a>
       </div>
     </div>
   </section>
@@ -97,6 +227,39 @@
       </div>
     </div>
   </section>
+
+  <!-- Coding Game Challenge Section -->
+<section id="coding-game">
+  <div class="game-container">
+    <div class="game-card">
+      <div class="game-animation">
+        <i class="fas fa-code"></i>
+        <i class="fas fa-gamepad"></i>
+        <i class="fas fa-brain"></i>
+      </div>
+      <h2>Tantangan Coding Game</h2>
+      <p>Asah kemampuan pemrograman Anda dengan cara yang menyenangkan! Bermain sambil belajar adalah cara terbaik untuk menguasai konsep coding.</p>
+      <div class="game-features">
+        <div class="feature">
+          <i class="fas fa-trophy"></i>
+          <h3>Dapatkan Skor Tinggi</h3>
+          <p>Bersaing dengan programmer lain dan capai peringkat teratas.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-lightbulb"></i>
+          <h3>Tantangan Logika</h3>
+          <p>Pecahkan masalah dengan algoritma yang efisien.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-certificate"></i>
+          <h3>Kembangkan Keahlian</h3>
+          <p>Kuasai HTML, CSS, JavaScript, dan konsep pemrograman lainnya.</p>
+        </div>
+      </div>
+      <a href="Game/index.html" class="game-button">Mulai Tantangan <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
 
   <!-- Contact Section dengan form interaktif -->
   <section id="contact">

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SatyaDev - Web Development Challenges</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>SatyaDev</h1>
+                <p class="tagline">Belajar Web Development Bersama Satya Adil Faishal</p>
+            </div>
+            <div class="profile">
+                <img src="https://via.placeholder.com/50" alt="Profile" class="profile-img">
+                <span>Member Area</span>
+            </div>
+        </header>
+
+        <div class="hero">
+            <h2>Tantangan Web Development</h2>
+            <p>Asah kemampuan coding-mu dengan menyelesaikan rangkaian tantangan berikut!</p>
+        </div>
+
+        <div class="challenge-selector">
+            <div class="path-selection">
+                <h3>Pilih Jalur Belajarmu</h3>
+                <div class="path-buttons">
+                    <button class="path-btn active" onclick="switchPath('html')">HTML</button>
+                    <button class="path-btn" onclick="switchPath('css')">CSS</button>
+                    <button class="path-btn" onclick="switchPath('js')">JavaScript</button>
+                </div>
+            </div>
+            <div class="challenge-cards" id="challenge-container">
+                <!-- Challenge cards will be populated by JS -->
+            </div>
+        </div>
+
+        <div class="current-challenge" id="challenge-arena">
+            <div class="challenge-header">
+                <h3 id="challenge-title">Tantangan HTML: Struktur Dasar Halaman Web</h3>
+                <div class="challenge-info">
+                    <span class="difficulty beginner">Beginner</span>
+                    <span class="estimated-time">Estimasi: 15 menit</span>
+                </div>
+            </div>
+
+            <div class="challenge-description" id="challenge-description">
+                <!-- Challenge description will be populated by JS -->
+            </div>
+
+            <div class="editor-container">
+                <div class="editor-wrapper">
+                    <div class="editor-header">
+                        <span>Editor Kode</span>
+                        <button onclick="resetCode()" class="icon-btn">↺ Reset</button>
+                    </div>
+                    <div class="code-editor">
+                        <textarea id="code-input" spellcheck="false"></textarea>
+                    </div>
+                </div>
+                <div class="preview-wrapper">
+                    <div class="editor-header">
+                        <span id="preview-title">Preview</span>
+                        <button onclick="runCode()" class="run-btn">▶ Jalankan</button>
+                    </div>
+                    <div class="preview" id="preview-container">
+                        <iframe id="preview-frame" frameborder="0"></iframe>
+                        <div class="output" id="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenge-controls">
+                <div class="hint-section">
+                    <button onclick="toggleHint()" class="hint-btn">💡 Lihat Petunjuk</button>
+                    <div class="hint-content" id="hint-content">
+                        <!-- Hint will be populated by JS -->
+                    </div>
+                </div>
+                <div class="navigation-btns">
+                    <button onclick="checkSolution()" class="check-btn">✓ Periksa Solusi</button>
+                    <button onclick="nextChallenge()" class="next-btn" id="next-btn" disabled>Tantangan Berikutnya →</button>
+                </div>
+            </div>
+            
+            <div class="status-message" id="status-message"></div>
+        </div>
+
+        <div class="progress-container">
+            <h3>Progress Belajar</h3>
+            <div class="progress-track">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p>Tantangan diselesaikan: <span id="completed-count">0</span>/<span id="total-count">9</span></p>
+            </div>
+            <div class="badges" id="badges-container">
+                <!-- Badges will be populated by JS -->
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>SatyaDev</h2>
+                    <p>Membangun developer Indonesia yang handal</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigasi</h4>
+                    <ul>
+                        <li><a href="#">Tantangan</a></li>
+                        <li><a href="#">Kursus</a></li>
+                        <li><a href="#">Artikel</a></li>
+                        <li><a href="#">Forum</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Hubungi Saya</h4>
+                    <p>Email: satya@satyaadil.com</p>
+                    <p>Twitter: @satyaadil</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">FB</a>
+                        <a href="#" class="social-icon">TW</a>
+                        <a href="#" class="social-icon">IG</a>
+                        <a href="#" class="social-icon">LI</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 SatyaDev. Dibuat dengan ❤️ oleh Satya Adil Faishal</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

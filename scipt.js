@@ -607,3 +607,294 @@ if (img.getAttribute('src')) {
 }
 });
 });
+
+
+
+// Main configuration
+const config = {
+  weatherApiKey: "61a30353f2a4700111356411c966c452", // Replace with your actual API key
+  stockApiKey: "QZGY57EPDCPD4EVW", // Replace with your actual API key
+  refreshInterval: 60000, // Refresh data every minute
+  locale: "id-ID", // Indonesian locale for formatting
+  units: "metric" // Use Celsius
+};
+
+// Initialize the dashboard
+document.addEventListener("DOMContentLoaded", () => {
+  initClock();
+  initWeather();
+  initStocks();
+  initTraffic();
+  initSports();
+  
+  // Set up periodic refresh
+  setInterval(() => {
+    updateWeather();
+    updateStocks();
+    updateTraffic();
+    updateSports();
+  }, config.refreshInterval);
+});
+
+// Clock and Date functions
+function initClock() {
+  updateClock();
+  setInterval(updateClock, 1000);
+}
+
+function updateClock() {
+  const now = new Date();
+  
+  // Update time
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  document.getElementById("current-time").textContent = 
+    `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+  
+  // Update date
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  const dateString = now.toLocaleDateString(config.locale, options);
+  document.getElementById("current-date").textContent = dateString;
+}
+
+// Weather functions
+function initWeather() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      fetchWeatherData(latitude, longitude);
+    }, weatherError);
+  } else {
+    weatherError("Geolocation is not supported by this browser.");
+  }
+}
+
+function weatherError(error) {
+  console.error("Weather error:", error);
+  document.getElementById("weather-condition").textContent = "Tidak tersedia";
+}
+
+function fetchWeatherData(lat, lon) {
+  // Using OpenWeatherMap API as an example
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${config.units}&appid=${config.weatherApiKey}`;
+  
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      updateWeatherUI(data);
+    })
+    .catch(error => {
+      weatherError(error);
+    });
+}
+
+function updateWeatherUI(data) {
+  // Location
+  document.getElementById("weather-location").textContent = data.name;
+  
+  // Temperature
+  const temp = Math.round(data.main.temp);
+  const tempHigh = Math.round(data.main.temp_max);
+  const tempLow = Math.round(data.main.temp_min);
+  
+  document.getElementById("temperature").textContent = temp;
+  document.getElementById("temp-unit").textContent = config.units === "metric" ? "C" : "F";
+  document.getElementById("temp-high").textContent = tempHigh;
+  document.getElementById("temp-low").textContent = tempLow;
+  
+  // Weather condition
+  document.getElementById("weather-condition").textContent = 
+    data.weather[0].description.charAt(0).toUpperCase() + 
+    data.weather[0].description.slice(1);
+  
+  // Update icon
+  const weatherIcon = document.getElementById("weather-icon");
+  weatherIcon.className = getWeatherIconClass(data.weather[0].id);
+}
+
+function getWeatherIconClass(weatherId) {
+  // Map OpenWeatherMap condition codes to FontAwesome icons
+  if (weatherId >= 200 && weatherId < 300) return "fas fa-bolt";
+  if (weatherId >= 300 && weatherId < 400) return "fas fa-cloud-rain";
+  if (weatherId >= 500 && weatherId < 600) return "fas fa-cloud-showers-heavy";
+  if (weatherId >= 600 && weatherId < 700) return "fas fa-snowflake";
+  if (weatherId >= 700 && weatherId < 800) return "fas fa-smog";
+  if (weatherId === 800) return "fas fa-sun";
+  if (weatherId > 800) return "fas fa-cloud-sun";
+  
+  return "fas fa-cloud"; // Default
+}
+
+function updateWeather() {
+  // Re-fetch weather data
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      fetchWeatherData(latitude, longitude);
+    });
+  }
+}
+
+// Stocks functions
+function initStocks() {
+  fetchStocksData();
+}
+
+function fetchStocksData() {
+  // Using example data - replace with actual API call
+  const stocksContainer = document.getElementById("stocks-container");
+  stocksContainer.innerHTML = ""; // Clear loading placeholder
+  
+  // Example stock symbols - replace with your preferred stocks
+  const stocks = [
+    { symbol: "IHSG", name: "IDX Composite" },
+    { symbol: "BBRI", name: "Bank BRI" },
+    { symbol: "TLKM", name: "Telkom Indonesia" },
+    { symbol: "ASII", name: "Astra International" }
+  ];
+  
+  // In a real implementation, you would fetch data from a financial API
+  // For this example, we'll use mock data
+  stocks.forEach(stock => {
+    // Generate random mock data for demonstration
+    const price = (Math.random() * 10000 + 1000).toFixed(2);
+    const changePercent = (Math.random() * 6 - 3).toFixed(2);
+    const isPositive = parseFloat(changePercent) >= 0;
+    
+    const stockElement = document.createElement("div");
+    stockElement.className = "stock-item";
+    stockElement.innerHTML = `
+      <div class="stock-name">${stock.name} (${stock.symbol})</div>
+      <div class="stock-change ${isPositive ? 'positive' : 'negative'}">
+        ${isPositive ? '+' : ''}${changePercent}%
+      </div>
+      <div class="stock-price">Rp ${price.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</div>
+    `;
+    
+    stocksContainer.appendChild(stockElement);
+  });
+}
+
+function updateStocks() {
+  fetchStocksData();
+}
+
+// Traffic functions
+function initTraffic() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      initTrafficMap(latitude, longitude);
+      fetchTrafficData(latitude, longitude);
+    }, error => {
+      console.error("Traffic error:", error);
+      document.getElementById("traffic-status").textContent = "Tidak tersedia";
+    });
+  } else {
+    document.getElementById("traffic-status").textContent = "Geolokasi tidak didukung di browser ini";
+  }
+}
+
+function initTrafficMap(lat, lon) {
+  const mapElement = document.getElementById("traffic-map");
+  
+  // This is a placeholder - in a real implementation, you would initialize
+  // a map using Google Maps, Mapbox, or another mapping service
+  mapElement.innerHTML = `
+    <div style="background-color: #e0e0e0; width: 100%; height: 150px; display: flex; align-items: center; justify-content: center;">
+      <div style="color: #333; font-size: 14px;">
+        Peta lalu lintas tersedia di sini
+        <br>
+        <small>Lokasi: ${lat.toFixed(4)}, ${lon.toFixed(4)}</small>
+      </div>
+    </div>
+  `;
+}
+
+function fetchTrafficData(lat, lon) {
+  // In a real implementation, you would fetch traffic data from a service
+  // like Google Maps, Waze, or a local traffic API
+  
+  // Mock data for demonstration
+  const locations = ["Slawi", "Tegal", "Brebes"];
+  const statuses = [
+    "Lancar", 
+    "Kepadatan rendah", 
+    "Kepadatan sedang", 
+    "Padat merayap", 
+    "Macet"
+  ];
+  
+  const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+  const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+  
+  document.getElementById("traffic-location").textContent = randomLocation;
+  document.getElementById("traffic-status").textContent = randomStatus;
+}
+
+function updateTraffic() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      fetchTrafficData(latitude, longitude);
+    });
+  }
+}
+
+// Sports functions
+function initSports() {
+  fetchSportsData();
+}
+
+function fetchSportsData() {
+  // In a real implementation, you would fetch sports data from a sports API
+  
+  // Mock data for Liga Premier (Premier League) matches
+  const teams = [
+    "Arsenal", "Man City", "Liverpool", "Man United", 
+    "Tottenham", "Chelsea", "Newcastle", "West Ham"
+  ];
+  
+  const matchesContainer = document.getElementById("matches-container");
+  matchesContainer.innerHTML = ""; // Clear loading placeholder
+  
+  // Generate 3 random matches
+  for (let i = 0; i < 3; i++) {
+    // Pick two random teams
+    let homeIndex = Math.floor(Math.random() * teams.length);
+    let awayIndex;
+    do {
+      awayIndex = Math.floor(Math.random() * teams.length);
+    } while (awayIndex === homeIndex);
+    
+    const homeTeam = teams[homeIndex];
+    const awayTeam = teams[awayIndex];
+    
+    // Generate random scores
+    const homeScore = Math.floor(Math.random() * 5);
+    const awayScore = Math.floor(Math.random() * 5);
+    
+    // Create match element
+    const matchElement = document.createElement("div");
+    matchElement.className = "match-item";
+    matchElement.innerHTML = `
+      <div class="teams">
+        <span class="team home">${homeTeam}</span>
+        <span class="vs">vs</span>
+        <span class="team away">${awayTeam}</span>
+      </div>
+      <div class="score">${homeScore} - ${awayScore}</div>
+    `;
+    
+    matchesContainer.appendChild(matchElement);
+  }
+  
+  // Update match status
+  const statuses = ["Pertandingan Hari Ini", "Pertandingan Selesai", "Jadwal Mendatang"];
+  document.getElementById("match-status").textContent = 
+    statuses[Math.floor(Math.random() * statuses.length)];
+}
+
+function updateSports() {
+  fetchSportsData();
+}
