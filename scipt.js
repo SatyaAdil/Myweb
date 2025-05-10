@@ -245,6 +245,19 @@ socialIcons.forEach((icon, index) => {
 });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Initialize Portfolio Carousel with interactive features
 function initPortfolioCarousel() {
 const carousel = document.querySelector('.portfolio-carousel');
@@ -255,31 +268,51 @@ if (items.length === 0) return;
 // Add view project button to each item
 items.forEach((item, index) => {
   const viewBtn = document.createElement('a');
-  
-  // Jika ini adalah item Laravel (proyek ke-4)
-  if (index === 3) { // Indeks 3 adalah item ke-4
-    viewBtn.href = 'laravel.html';
+
+  if (index === 2) {
+    viewBtn.href = 'Task Manager/index.html'; // Task Manager
+  } else if (index === 3) {
+    viewBtn.href = 'laravel.html'; // Laravel
   } else {
     viewBtn.href = '#';
   }
-  
+
   viewBtn.className = 'view-project';
   viewBtn.textContent = 'View Project';
   item.style.position = 'relative';
   item.appendChild(viewBtn);
-  
+
   // Add click event
   viewBtn.addEventListener('click', function(e) {
     if (soundEnabled) clickSound.play();
-    
-    // Jika bukan item Laravel, tampilkan alert
-    if (index !== 3) {
+
+    // Jika bukan item ke-2 atau ke-3, tampilkan alert
+    if (index !== 2 && index !== 3) {
       e.preventDefault();
       alert('Sedang Dalam Tahap Perbaikan!');
     }
-    // Jika item Laravel, biarkan link bekerja seperti biasa
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Set first item as active
 items[0].classList.add('active');

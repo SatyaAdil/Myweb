@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4361ee">
+    <title>TaskMaster - Pengelola Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+    <!-- Overlay untuk sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <i class="fas fa-tasks logo-icon"></i>
+                <h2 class="logo-text">TaskMaster</h2>
+            </div>
+            <button id="sidebarCollapseBtn" class="sidebar-toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-profile">
+            <div class="profile-image">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="profile-info">
+                <h3 class="profile-name">Mahasiswa</h3>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="sidebar-item active">
+                <a href="#dashboard" class="sidebar-link">
+                    <i class="fas fa-home sidebar-icon"></i>
+                    <span class="sidebar-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#tugas" class="sidebar-link">
+                    <i class="fas fa-clipboard-list sidebar-icon"></i>
+                    <span class="sidebar-text">Daftar Tugas</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#tambah" class="sidebar-link">
+                    <i class="fas fa-plus-circle sidebar-icon"></i>
+                    <span class="sidebar-text">Tambah Tugas</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link" id="darkModeToggle">
+                    <i class="fas fa-moon sidebar-icon"></i>
+                    <span class="sidebar-text">Mode Gelap</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <p class="copyright">© 2025 TaskMaster</p>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="menu-toggle">
+                <button id="menuToggleBtn" class="menu-toggle-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="header-search">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Cari tugas...">
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Container -->
+        <div class="container" id="dashboard-section">
+            <div class="header">
+                <h1>Dashboard Tugas</h1>
+                <p>Kelola tugas kuliah dengan mudah dan efisien</p>
+            </div>
+            
+            <div class="dashboard-summary">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-title">Total Tugas</span>
+                        <span class="summary-value" id="totalTasks">0</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-title">Sedang Dikerjakan</span>
+                        <span class="summary-value" id="ongoingTasks">0</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-title">Selesai</span>
+                        <span class="summary-value" id="completedTasks">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upcoming Tasks -->
+            <div class="section-container">
+                <h2 class="section-title">Tugas Mendatang</h2>
+                <div class="upcoming-tasks" id="upcomingTasks">
+                    <!-- Tasks will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Task List Container -->
+        <div class="container hidden" id="tugas-section">
+            <div class="header">
+                <h1>Daftar Tugas</h1>
+                <p>Kelola semua tugas Anda</p>
+            </div>
+            
+            <div class="tasks-tabs">
+                <button class="tab-btn active" data-filter="semua">Semua</button>
+                <button class="tab-btn" data-filter="hari-ini">Hari Ini</button>
+                <button class="tab-btn" data-filter="selesai">Selesai</button>
+            </div>
+            
+            <div id="taskList">
+                <!-- Task cards will be inserted here by JavaScript -->
+            </div>
+            
+            <div id="emptyState" class="empty-state">
+                <i class="fas fa-clipboard-list empty-icon"></i>
+                <h3>Belum Ada Tugas</h3>
+                <p>Tambahkan tugas pertama Anda dengan mengklik tombol "Tambah Tugas"</p>
+            </div>
+        </div>
+        
+        <!-- Add Task Container -->
+        <div class="container hidden" id="tambah-section">
+            <div class="header">
+                <h1>Tambah Tugas Baru</h1>
+                <p>Buat tugas baru dengan detail lengkap</p>
+            </div>
+            
+            <div class="add-task-container">
+                <div class="form-group">
+                    <label for="taskInput"><i class="fas fa-clipboard-list"></i> Judul Tugas:</label>
+                    <input type="text" class="task-input" id="taskInput" placeholder="Masukkan judul tugas">
+                </div>
+                
+                <div class="form-group">
+                    <label for="taskDescription"><i class="fas fa-align-left"></i> Deskripsi:</label>
+                    <textarea id="taskDescription" class="form-control" placeholder="Masukkan deskripsi tugas" rows="3"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group form-group-half">
+                        <label for="courseInput"><i class="fas fa-book"></i> Mata Kuliah:</label>
+                        <input type="text" id="courseInput" class="form-control" placeholder="Masukkan nama mata kuliah">
+                    </div>
+                    <div class="form-group form-group-half">
+                        <label for="instructorInput"><i class="fas fa-user-tie"></i> Dosen:</label>
+                        <input type="text" id="instructorInput" class="form-control" placeholder="Masukkan nama dosen">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group form-group-half">
+                        <label for="deadlineDate"><i class="fas fa-calendar-alt"></i> Tanggal Deadline:</label>
+                        <input type="date" id="deadlineDate" class="form-control">
+                    </div>
+                    <div class="form-group form-group-half">
+                        <label for="deadlineTime"><i class="fas fa-clock"></i> Waktu Deadline:</label>
+                        <input type="time" id="deadlineTime" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prioritySelect"><i class="fas fa-flag"></i> Prioritas:</label>
+                    <select id="prioritySelect" class="form-control">
+                        <option value="rendah">Rendah</option>
+                        <option value="sedang" selected>Sedang</option>
+                        <option value="tinggi">Tinggi</option>
+                    </select>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn btn-primary" id="addTaskBtn">
+                        <i class="fas fa-plus"></i> Tambah Tugas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template untuk task card -->
+    <template id="taskTemplate">
+        <div class="task-card" data-id="">
+            <div class="task-priority-indicator"></div>
+            <div class="task-header">
+                <h3 class="task-title"></h3>
+                <span class="time-remaining"></span>
+            </div>
+            
+            <p class="task-description"></p>
+            
+            <div class="task-info">
+                <span class="course-name"></span>
+            </div>
+            
+            <div class="task-date-container">
+                <span class="task-date"></span>
+                <span class="task-time"></span>
+            </div>
+            
+            <div class="task-actions">
+                <button class="btn-action btn-edit" title="Edit Tugas">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn-action btn-complete" title="Tandai Selesai">
+                    <i class="fas fa-check"></i> Selesai
+                </button>
+                <button class="btn-action btn-delete" title="Hapus Tugas">
+                    <i class="fas fa-trash"></i> Hapus
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Modal untuk mengedit tugas -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Tugas</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="editTaskTitle"><i class="fas fa-clipboard-list"></i> Judul Tugas:</label>
+                <input type="text" id="editTaskTitle" class="form-control" placeholder="Judul Tugas">
+            </div>
+            
+            <div class="form-group">
+                <label for="editTaskDescription"><i class="fas fa-align-left"></i> Deskripsi:</label>
+                <textarea id="editTaskDescription" class="form-control" placeholder="Deskripsi tugas" rows="3"></textarea>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    <label for="editCourseInput"><i class="fas fa-book"></i> Mata Kuliah:</label>
+                    <input type="text" id="editCourseInput" class="form-control" placeholder="Nama Mata Kuliah">
+                </div>
+                <div class="form-group form-group-half">
+                    <label for="editInstructorInput"><i class="fas fa-user-tie"></i> Dosen:</label>
+                    <input type="text" id="editInstructorInput" class="form-control" placeholder="Nama Dosen">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    <label for="editDeadlineDate"><i class="fas fa-calendar-alt"></i> Tanggal Deadline:</label>
+                    <input type="date" id="editDeadlineDate" class="form-control">
+                </div>
+                <div class="form-group form-group-half">
+                    <label for="editDeadlineTime"><i class="fas fa-clock"></i> Waktu Deadline:</label>
+                    <input type="time" id="editDeadlineTime" class="form-control">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="editPrioritySelect"><i class="fas fa-flag"></i> Prioritas:</label>
+                <select id="editPrioritySelect" class="form-control">
+                    <option value="rendah">Rendah</option>
+                    <option value="sedang">Sedang</option>
+                    <option value="tinggi">Tinggi</option>
+                </select>
+            </div>
+            
+            <div class="progress-edit">
+                <label for="editProgress"><i class="fas fa-tasks"></i> Kemajuan:</label>
+                <input type="range" id="editProgress" min="0" max="100" value="0">
+                <div class="progress-value-container">
+                    <span id="progressValue">0%</span>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelEditBtn">Batal</button>
+                <button id="saveEditBtn" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal untuk konfirmasi hapus -->
+    <div id="confirmDeleteModal" class="modal">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2 class="modal-title">Konfirmasi Hapus</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus tugas ini?</p>
+                <p class="task-to-delete"></p>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelDeleteBtn">Batal</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifikasi toast -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Script -->
+    <script src="app.js"></script>
+</body>
+</html>
