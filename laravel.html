@@ -3,133 +3,589 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengenalan Instalasi Laravel By;Satya</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1e1e2e;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            background: #2a2a3c;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        h2 {
-            color: #72b4ff;
-            border-bottom: 2px solid #72b4ff;
-            padding-bottom: 5px;
-        }
-        ul, ol {
-            padding-left: 20px;
-        }
-        code {
-            background: #3a3a4f;
-            padding: 3px 6px;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        pre {
-            background: #3a3a4f;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        pre code {
-            color: #e0e0e0;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #aaa;
-        }
-    </style>
+    <title>Laravel Essentials - Quick Guide</title>
+    <link rel="stylesheet" href="styless.css">
 </head>
 <body>
-    <div class="container" id="pengertian">
-        <h2>Pengertian Laravel</h2>
-        <p>Laravel adalah framework PHP open-source yang digunakan untuk membangun aplikasi web dengan sintaks yang elegan, sederhana, dan ekspresif. Laravel menyediakan berbagai fitur seperti routing, middleware, ORM, autentikasi, dan masih banyak lagi.</p>
-    </div>
-    <div class="container" id="bahan">
-        <h2>Bahan Pendukung</h2>
-        <p>Untuk menginstal Laravel, Anda membutuhkan:</p>
-        <ul>
-            <li>PHP >= 8.0</li>
-            <li>Composer</li>
-            <li>Web Server (Apache/Nginx)</li>
-            <li>Database (MySQL/PostgreSQL)</li>
-            <li>Node.js & NPM (untuk frontend jika diperlukan)</li>
-        </ul>
-    </div>
-    <div class="container" id="install">
-        <h2>Instalasi Laravel</h2>
-        <p>Ikuti langkah berikut untuk menginstal Laravel:</p>
-        <ol>
-            <li>Pastikan PHP, Composer, dan Node.js telah terinstal.</li>
-            <li>Jalankan perintah berikut untuk membuat proyek Laravel:</li>
-            <pre><code>composer create-project laravel/laravel myproject</code></pre>
-            <li>Masuk ke direktori proyek dan jalankan server:</li>
-            <pre><code>cd myproject
-php artisan serve</code></pre>
-            <li>Set konfigurasi database di file <code>.env</code>.</li>
-            <li>Jalankan migrasi database:</li>
-            <pre><code>php artisan migrate</code></pre>
-            <li>Jika menggunakan Vue atau React, instal dependensi frontend:</li>
-            <pre><code>npm install && npm run dev</code></pre>
-        </ol>
-    </div>
-    <div class="container" id="routing">
-        <h2>Routing di Laravel</h2>
-        <p>Routing di Laravel ditentukan dalam file <code>routes/web.php</code>. Contoh route sederhana:</p>
-        <pre><code>Route::get('/', function () {
-    return view('welcome');
-});</code></pre>
-        <p>Contoh route dengan controller:</p>
-        <pre><code>use App\Http\Controllers\UserController;
+    <div class="wrapper">
+        <header class="header">
+            <div class="header-container">
+                <h1>Laravel Essentials</h1>
+                <p>A simplified but comprehensive guide to Laravel</p>
+            </div>
+        </header>
 
-Route::get('/users', [UserController::class, 'index']);</code></pre>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#intro" class="nav-link active">Introduction</a></li>
+                <li><a href="#requirements" class="nav-link">Requirements</a></li>
+                <li><a href="#installation" class="nav-link">Installation</a></li>
+                <li><a href="#structure" class="nav-link">Project Structure</a></li>
+                <li><a href="#routing" class="nav-link">Routing</a></li>
+                <li><a href="#migrations" class="nav-link">Migrations</a></li>
+                <li><a href="#crud" class="nav-link">CRUD Operations</a></li>
+                <li><a href="#deployment" class="nav-link">Deployment</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <section id="intro" class="section">
+                <h2>What is Laravel?</h2>
+                <div class="info-card">
+                    <p>Laravel is an elegant PHP framework designed for web developers who need a simple, elegant toolkit to create full-featured web applications. It follows the MVC pattern and provides a clean, expressive syntax.</p>
+                    <div class="features">
+                        <div class="feature-item">
+                            <span class="feature-icon">🚀</span>
+                            <h3>Expressive</h3>
+                            <p>Clean, readable code syntax</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">⚙️</span>
+                            <h3>Powerful</h3>
+                            <p>Advanced tools and features</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🛡️</span>
+                            <h3>Secure</h3>
+                            <p>Built-in security features</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="requirements" class="section">
+                <h2>Requirements</h2>
+                <div class="info-card">
+                    <p>Before installing Laravel, make sure your environment meets these requirements:</p>
+                    <ul class="checklist">
+                        <li><span class="check-icon">✓</span> PHP >= 8.0</li>
+                        <li><span class="check-icon">✓</span> Composer</li>
+                        <li><span class="check-icon">✓</span> Web Server (Apache/Nginx)</li>
+                        <li><span class="check-icon">✓</span> Database (MySQL/PostgreSQL)</li>
+                        <li><span class="check-icon">✓</span> Node.js & NPM (for frontend)</li>
+                    </ul>
+                    <div class="tip">
+                        <strong>Tip:</strong> Make sure your PHP installation has the following extensions: BCMath, Ctype, Fileinfo, JSON, Mbstring, OpenSSL, PDO, Tokenizer, and XML.
+                    </div>
+                </div>
+            </section>
+
+            <section id="installation" class="section">
+                <h2>Installation</h2>
+                <div class="info-card">
+                    <h3>Step-by-Step Guide</h3>
+                    <ol class="steps">
+                        <li>
+                            <h4>Create a new Laravel project</h4>
+                            <div class="code-block">
+                                <pre><code>composer create-project laravel/laravel myproject</code></pre>
+                                <button class="copy-btn" data-clipboard-text="composer create-project laravel/laravel myproject">Copy</button>
+                            </div>
+                        </li>
+                        <li>
+                            <h4>Navigate to your project directory</h4>
+                            <div class="code-block">
+                                <pre><code>cd myproject</code></pre>
+                                <button class="copy-btn" data-clipboard-text="cd myproject">Copy</button>
+                            </div>
+                        </li>
+                        <li>
+                            <h4>Start the development server</h4>
+                            <div class="code-block">
+                                <pre><code>php artisan serve</code></pre>
+                                <button class="copy-btn" data-clipboard-text="php artisan serve">Copy</button>
+                            </div>
+                        </li>
+                        <li>
+                            <h4>Configure your database in .env file</h4>
+                            <div class="code-block">
+                                <pre><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=</code></pre>
+                                <button class="copy-btn" data-clipboard-text="DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=">Copy</button>
+                            </div>
+                        </li>
+                        <li>
+                            <h4>Run migrations</h4>
+                            <div class="code-block">
+                                <pre><code>php artisan migrate</code></pre>
+                                <button class="copy-btn" data-clipboard-text="php artisan migrate">Copy</button>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="structure" class="section">
+                <h2>Project Structure</h2>
+                <div class="info-card">
+                    <div class="folder-structure">
+                        <ul class="tree">
+                            <li>
+                                <span class="folder">app/</span>
+                                <ul>
+                                    <li><span class="subfolder">Http/</span> (Controllers, Middleware)</li>
+                                    <li><span class="subfolder">Models/</span> (Eloquent Models)</li>
+                                    <li><span class="subfolder">Providers/</span> (Service Providers)</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="folder">config/</span>
+                                <ul>
+                                    <li>Configuration files</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="folder">database/</span>
+                                <ul>
+                                    <li><span class="subfolder">migrations/</span> (Database migrations)</li>
+                                    <li><span class="subfolder">seeders/</span> (Database seeders)</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="folder">public/</span>
+                                <ul>
+                                    <li>Assets and entry point</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="folder">resources/</span>
+                                <ul>
+                                    <li><span class="subfolder">views/</span> (Blade templates)</li>
+                                    <li><span class="subfolder">css/</span> (Stylesheets)</li>
+                                    <li><span class="subfolder">js/</span> (JavaScript files)</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="folder">routes/</span>
+                                <ul>
+                                    <li>Application routes</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="folder">storage/</span>
+                                <ul>
+                                    <li>Logs, cache, uploads</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="routing" class="section">
+                <h2>Routing</h2>
+                <div class="info-card">
+                    <p>Routes in Laravel are defined in the <code>routes/web.php</code> file for web routes and <code>routes/api.php</code> for API routes.</p>
+                    
+                    <div class="tabs">
+                        <div class="tab-headers">
+                            <button class="tab-btn active" data-tab="basic-routes">Basic Routes</button>
+                            <button class="tab-btn" data-tab="controller-routes">Controller Routes</button>
+                            <button class="tab-btn" data-tab="route-groups">Route Groups</button>
+                        </div>
+                        
+                        <div class="tab-content">
+                            <div id="basic-routes" class="tab-pane active">
+                                <div class="code-block">
+                                    <pre><code>// Simple route with closure
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Route with parameters
+Route::get('/user/{id}', function ($id) {
+    return 'User ID: ' . $id;
+});</code></pre>
+                                    <button class="copy-btn" data-clipboard-text="// Simple route with closure
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Route with parameters
+Route::get('/user/{id}', function ($id) {
+    return 'User ID: ' . $id;
+});">Copy</button>
+                                </div>
+                            </div>
+                            
+                            <div id="controller-routes" class="tab-pane">
+                                <div class="code-block">
+                                    <pre><code>use App\Http\Controllers\UserController;
+
+// Single action
+Route::get('/users', [UserController::class, 'index']);
+
+// Resource controller (CRUD)
+Route::resource('products', ProductController::class);</code></pre>
+                                    <button class="copy-btn" data-clipboard-text="use App\Http\Controllers\UserController;
+
+// Single action
+Route::get('/users', [UserController::class, 'index']);
+
+// Resource controller (CRUD)
+Route::resource('products', ProductController::class);">Copy</button>
+                                </div>
+                            </div>
+                            
+                            <div id="route-groups" class="tab-pane">
+                                <div class="code-block">
+                                    <pre><code>// Group with middleware and prefix
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    Route::resource('products', ProductController::class);
+});</code></pre>
+                                    <button class="copy-btn" data-clipboard-text="// Group with middleware and prefix
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    Route::resource('products', ProductController::class);
+});">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip">
+                        <strong>Tip:</strong> Use <code>php artisan route:list</code> to see all registered routes in your application.
+                    </div>
+                </div>
+            </section>
+
+            <section id="migrations" class="section">
+                <h2>Database Migrations</h2>
+                <div class="info-card">
+                    <p>Migrations are like version control for your database schema. They allow you to define and share the application's database schema definition.</p>
+                    
+                    <h3>Creating Migrations</h3>
+                    <div class="code-block">
+                        <pre><code>php artisan make:migration create_products_table</code></pre>
+                        <button class="copy-btn" data-clipboard-text="php artisan make:migration create_products_table">Copy</button>
+                    </div>
+                    
+                    <h3>Migration Structure</h3>
+                    <div class="code-block">
+                        <pre><code>use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProductsTable extends Migration
+{
+    public function up()
+    {
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->integer('stock');
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('products');
+    }
+}</code></pre>
+                        <button class="copy-btn" data-clipboard-text="use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProductsTable extends Migration
+{
+    public function up()
+    {
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->integer('stock');
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('products');
+    }
+}">Copy</button>
+                    </div>
+                    
+                    <h3>Running Migrations</h3>
+                    <div class="command-list">
+                        <div class="command-item">
+                            <div class="command">php artisan migrate</div>
+                            <div class="command-desc">Run all pending migrations</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command">php artisan migrate:rollback</div>
+                            <div class="command-desc">Rollback the last batch of migrations</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command">php artisan migrate:fresh</div>
+                            <div class="command-desc">Drop all tables and re-run all migrations</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="crud" class="section">
+                <h2>CRUD Operations</h2>
+                <div class="info-card">
+                    <p>Here's a simplified example of implementing CRUD (Create, Read, Update, Delete) operations in Laravel:</p>
+                    
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header">1. Create Model & Migration</div>
+                            <div class="accordion-content">
+                                <div class="code-block">
+                                    <pre><code>php artisan make:model Product -m</code></pre>
+                                    <button class="copy-btn" data-clipboard-text="php artisan make:model Product -m">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header">2. Create Controller</div>
+                            <div class="accordion-content">
+                                <div class="code-block">
+                                    <pre><code>php artisan make:controller ProductController --resource</code></pre>
+                                    <button class="copy-btn" data-clipboard-text="php artisan make:controller ProductController --resource">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header">3. Define Routes</div>
+                            <div class="accordion-content">
+                                <div class="code-block">
+                                    <pre><code>// In routes/web.php
+Route::resource('products', ProductController::class);</code></pre>
+                                    <button class="copy-btn" data-clipboard-text="// In routes/web.php
+Route::resource('products', ProductController::class);">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header">4. Controller Methods</div>
+                            <div class="accordion-content">
+                                <div class="code-block">
+                                    <pre><code>// Index - Show all products
+public function index()
+{
+    $products = Product::latest()->paginate(10);
+    return view('products.index', compact('products'));
+}
+
+// Create - Show create form
+public function create()
+{
+    return view('products.create');
+}
+
+// Store - Save new product
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+    ]);
+    
+    Product::create($validated);
+    
+    return redirect()->route('products.index')
+        ->with('success', 'Product created successfully');
+}
+
+// Show - Display a product
+public function show(Product $product)
+{
+    return view('products.show', compact('product'));
+}
+
+// Edit - Show edit form
+public function edit(Product $product)
+{
+    return view('products.edit', compact('product'));
+}
+
+// Update - Save changes
+public function update(Request $request, Product $product)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+    ]);
+    
+    $product->update($validated);
+    
+    return redirect()->route('products.index')
+        ->with('success', 'Product updated successfully');
+}
+
+// Destroy - Delete a product
+public function destroy(Product $product)
+{
+    $product->delete();
+    
+    return redirect()->route('products.index')
+        ->with('success', 'Product deleted successfully');
+}</code></pre>
+                                    <button class="copy-btn" data-clipboard-text="// Index - Show all products
+public function index()
+{
+    $products = Product::latest()->paginate(10);
+    return view('products.index', compact('products'));
+}
+
+// Create - Show create form
+public function create()
+{
+    return view('products.create');
+}
+
+// Store - Save new product
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+    ]);
+    
+    Product::create($validated);
+    
+    return redirect()->route('products.index')
+        ->with('success', 'Product created successfully');
+}
+
+// Show - Display a product
+public function show(Product $product)
+{
+    return view('products.show', compact('product'));
+}
+
+// Edit - Show edit form
+public function edit(Product $product)
+{
+    return view('products.edit', compact('product'));
+}
+
+// Update - Save changes
+public function update(Request $request, Product $product)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+    ]);
+    
+    $product->update($validated);
+    
+    return redirect()->route('products.index')
+        ->with('success', 'Product updated successfully');
+}
+
+// Destroy - Delete a product
+public function destroy(Product $product)
+{
+    $product->delete();
+    
+    return redirect()->route('products.index')
+        ->with('success', 'Product deleted successfully');
+}">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="deployment" class="section">
+                <h2>Deployment</h2>
+                <div class="info-card">
+                    <p>When deploying Laravel to production, follow these steps:</p>
+                    
+                    <div class="deployment-steps">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <h3>Server Setup</h3>
+                            <p>Set up a server with PHP 8.0+, a web server (Apache/Nginx), and database.</p>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <h3>Upload Code</h3>
+                            <p>Use Git or FTP to upload your Laravel application to the server.</p>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <h3>Environment Configuration</h3>
+                            <p>Set up your <code>.env</code> file with production settings.</p>
+                            <div class="code-block mini">
+                                <pre><code>APP_ENV=production
+APP_DEBUG=false</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <h3>Install Dependencies</h3>
+                            <p>Run composer install with optimizations.</p>
+                            <div class="code-block mini">
+                                <pre><code>composer install --optimize-autoloader --no-dev</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <h3>Optimize</h3>
+                            <p>Run Laravel's optimization commands.</p>
+                            <div class="code-block mini">
+                                <pre><code>php artisan config:cache
+php artisan route:cache
+php artisan view:cache</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <h3>Permissions</h3>
+                            <p>Set correct permissions for storage and cache directories.</p>
+                            <div class="code-block mini">
+                                <pre><code>chmod -R 775 storage bootstrap/cache</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="warning">
+                        <strong>Important:</strong> Always make a backup of your database and files before deploying to production.
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Laravel Essentials Documentation | Created by Satya</p>
+            <p>Dosen: Jamal Apriadi, S.Kom | &copy; 2025</p>
+        </footer>
     </div>
-    <div class="container" id="kerangka">
-        <h2>Struktur Proyek Laravel</h2>
-        <p>Laravel memiliki struktur proyek sebagai berikut:</p>
-        <ul>
-            <li><code>app/</code> - Berisi logika aplikasi</li>
-            <li><code>routes/</code> - Berisi konfigurasi routing</li>
-            <li><code>database/</code> - Berisi migrasi dan seeder</li>
-            <li><code>resources/</code> - Berisi tampilan dan asset frontend</li>
-            <li><code>public/</code> - Direktori utama yang dapat diakses oleh pengguna</li>
-        </ul>
-    </div>
-    <div class="container" id="middleware">
-        <h2>Middleware di Laravel</h2>
-        <p>Middleware digunakan untuk memfilter permintaan HTTP. Contoh membuat middleware baru:</p>
-        <pre><code>php artisan make:middleware CheckUser</code></pre>
-        <p>Middleware dapat didaftarkan dalam <code>app/Http/Kernel.php</code>.</p>
-    </div>
-    <div class="container" id="deploy">
-        <h2>Deploy Laravel</h2>
-        <p>Untuk melakukan deploy Laravel ke server, ikuti langkah berikut:</p>
-        <ol>
-            <li>Upload kode ke server menggunakan Git atau FTP.</li>
-            <li>Pastikan semua dependency terinstal dengan perintah:</li>
-            <pre><code>composer install --optimize-autoloader --no-dev</code></pre>
-            <li>Set permission pada folder <code>storage</code> dan <code>bootstrap/cache</code>:</li>
-            <pre><code>chmod -R 775 storage bootstrap/cache</code></pre>
-            <li>Konfigurasi file <code>.env</code> dan jalankan migrasi database:</li>
-            <pre><code>php artisan migrate --force</code></pre>
-            <li>Pastikan konfigurasi queue dan cron job telah diatur jika diperlukan.</li>
-            <li>Gunakan supervisor untuk menjalankan queue worker di latar belakang.</li>
-        </ol>
-    </div>
-    <div class="footer">
-        <p>Hak Cipta &copy; 2025 - Dosen: Jamal Apriadi, S.Kom</p>
-    </div>
+
+    <script src="scriptt.js"></script>
 </body>
 </html>
