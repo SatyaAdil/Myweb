@@ -941,3 +941,19 @@ body.dark-mode #searchInput {
 
 
 /* Tambahan responsif untuk Android atau layar kecil */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+    display: none;
+    pointer-events: none;
+}
+
+.sidebar-overlay.show {
+    display: block;
+    pointer-events: auto;
+}
